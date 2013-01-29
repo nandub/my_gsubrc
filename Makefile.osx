@@ -1,0 +1,22 @@
+CC = cc
+LD = cc
+
+CFLAGS = -g -O2 -I$(HOME)/gale/include -I/usr/local/include
+LDFLAGS = -dynamiclib -L/usr/local/lib -L$(HOME)/gale/lib -lgale -lgc -loop-adns -loop -lcrypto -lreadline -ltermcap -lresolv -liconv
+
+TARGET = my_gsubrc
+
+all: $(TARGET).dylib
+
+install: all
+	cp $(TARGET).dylib $(HOME)/.gale/gsubrc.dylib_new
+	mv $(HOME)/.gale/gsubrc.dylib_new $(HOME)/.gale/gsubrc.dylib
+
+clean:
+	rm $(TARGET).o $(TARGET).dylib
+
+$(TARGET).dylib: $(TARGET).o
+	$(LD) $(LDFLAGS) -o $@ $<
+
+$(TARGET).o: $(TARGET).c
+	$(CC) $(CFLAGS) -c $< -o $@

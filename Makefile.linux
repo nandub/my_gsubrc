@@ -1,0 +1,18 @@
+CFLAGS = -O2 -I/home/egnor/source/gale/include -I/home/egnor/source/gale/liboop
+
+TARGET = my_gsubrc
+
+all: $(TARGET).so
+
+install: all
+	cp $(TARGET).so $(HOME)/.gale/gsubrc.so_new
+	mv $(HOME)/.gale/gsubrc.so_new $(HOME)/.gale/gsubrc.so
+
+clean:
+	rm $(TARGET).o $(TARGET).so
+
+$(TARGET).so: $(TARGET).o
+	ld --shared -o $@ $<
+
+$(TARGET).o: $(TARGET).c
+	gcc $(CFLAGS) -c $< -o $@
