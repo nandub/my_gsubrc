@@ -2,7 +2,7 @@ CC = cc
 LD = cc
 
 CFLAGS = -g -O2 -I$(HOME)/gale/include -I/usr/local/include
-LDFLAGS = -dynamiclib -L/usr/local/lib -L$(HOME)/gale/lib -lgale -lgc -loop-adns -loop -lcrypto -lreadline -ltermcap -lresolv -liconv
+LDFLAGS = -dynamiclib -L$(HOME)/gale/lib -L/usr/local/lib -lgale -lgc -loop-adns -loop -lcrypto -lreadline -ltermcap -lresolv -liconv
 
 TARGET = my_gsubrc
 
