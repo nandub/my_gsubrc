@@ -1,8 +1,15 @@
 CC = cc
 LD = cc
 
-CFLAGS = -g -O2 -I$(HOME)/gale/include -I/usr/local/include
-LDFLAGS = -dynamiclib -L$(HOME)/gale/lib -L/usr/local/lib -lgale -lgc -loop-adns -loop -lcrypto -lreadline -ltermcap -lresolv -liconv
+ifneq "$(wildcard $(HOME)/gale/lib )" ""
+	LDFLAGS += -L$(HOME)/gale/lib
+endif
+ifneq "$(wildcard /opt/gale/lib )" ""
+        LDFLAGS += -L/opt/gale/lib
+endif
+
+CFLAGS = -g -O2 -I/usr/local/include -I$(HOME)/gale/include -I/opt/gale/include
+LDFLAGS += -L/usr/local/lib -dynamiclib -lgale -lgc -loop-adns -loop -lcrypto -lreadline -ltermcap -lresolv -liconv
 
 TARGET = my_gsubrc
 
